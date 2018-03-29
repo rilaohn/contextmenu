@@ -4,18 +4,44 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="index.css" />
-    <script src="test.js"></script>
 </head>
 <body>
 <div id="uls" class="rkm_ctx">
-    <div class="rkm_item">1</div>
+    <div class="rkm_item rkm_item_child">1</div>
     <div class="rkm_item">12</div>
     <div class="rkm_item">123</div>
     <div class="rkm_item">1234</div>
     <div class="rkm_item">12345</div>
 </div>
+<br>
+<div style="width: 100%; height: 100px; background-color: aqua; margin-top: 200px" id="aaa"></div>
+<br>
+<div style="width: fit-content">
+    <div style="width: 100px; height: 100px; background-color: aqua;" class="rkm_item_child"></div>
+</div>
 </body>
 <script>
-    console.log(document.body.children)
+    var aaa = document.getElementById('aaa')
+    aaa.addEventListener('contextmenu', function (ev) {
+        ev.preventDefault();
+        console.log('x: ', ev.clientX)
+        console.log('y: ', ev.clientY)
+    })
+    window.addEventListener('resize', function (ev) {
+        console.log(555)
+    })
+    window.addEventListener('resize', function (ev) {
+        log(666)
+    })
+    var log = function (str) {
+        console.log(str)
+    }
+    console.log('ttt: ', typeof log)
+    // (function (r, f) {
+    //
+    // })(this, function () {
+    //
+    // })
 </script>
+<script src="test.js"></script>
 </html>

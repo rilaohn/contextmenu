@@ -9,9 +9,22 @@
         root["rkm"] = factory();
 })(this, function () {
     var def = {
-        items: []
+        items: [
+            {
+                label: 'label',
+                className: 'class name',
+                click: 'call back',
+                childrens: []
+            }
+        ]
     }
     var _node = null
+    var _w_c = {
+        x: 0,
+        y: 0,
+        w: 0,
+        h: 0
+    }
 
     /**
      * 通过html字符串创建dom节点
@@ -30,6 +43,7 @@
      * @param option 配置信息
      */
     var _init = function (node, option) {
+        _init_body()
         if (typeof node === 'object') {
             try {
                 throw new Error('init node error')
@@ -43,6 +57,9 @@
         }
         _node = node
         _node.addEventListener('contextmenu', _init_rm)
+        window.addEventListener('resize', function () {
+            _init_body()
+        })
     }
 
     /**
@@ -50,13 +67,13 @@
      * @param e
      * @private
      */
-    var _init_rm = function (event) {
-        event.preventDefault();
-        _init_item();
+    var _init_rm = function (ev) {
+        ev.preventDefault();
+        _init_click();
+        _init_item(def.items);
     }
 
-    var _init_item = function () {
-        var items = []
+    var _init_item = function (items) {
         var maxWidth = 0;
         for (var i in def.items) {
             var item = def.items[i]
@@ -65,11 +82,24 @@
                 className = item.className
             }
             var node = createNodes('<div class="' + className + '">' + item.label + '</div>')[0]
+            if (typeof item.click === 'function') {
+                node.addEventListener('click', item.click)
+            }
             items.push(node)
             if (node.clientWidth > maxWidth) {
                 maxWidth = node.clientWidth
             }
         }
+    }
+
+    var _init_body = function () {
+        _w_c.w = document.body.clientWidth
+        _w_c.h = document.body.clientHeight
+    }
+
+    var _init_click = function (ev) {
+        _w_c.x = ev.clientX
+        _w_c.y = ev.clientY
     }
 
     return {

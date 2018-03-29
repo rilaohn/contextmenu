@@ -5,6 +5,8 @@
 })(this, function () {
     return (function (val) {
         function __foo(i) {
+            console.log('do2: ', document.body.clientWidth)
+            console.log('do3: ', document.body.clientHeight)
             return val * i
         }
         return {

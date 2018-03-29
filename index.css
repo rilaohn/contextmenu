@@ -12,4 +12,20 @@
     font-size: 12px;
     height: 20px;
     line-height: 20px;
+    box-sizing: border-box;
+}
+.rkm_item_child{
+    position: relative;
+    margin-right: 10px;
+}
+.rkm_item_child::after{
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    left: 100%;
+    position: absolute;
+    width: 0;
+    border-width: 10px;
+    border-left-color: #000;
+    top: calc(50% - 10px);
 }
